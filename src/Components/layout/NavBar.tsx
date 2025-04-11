@@ -5,13 +5,24 @@ import { useCart } from '@/context/CartContext';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { cartCount } = useCart();
+    const { cartCount, clearCart } = useCart();
     const handleCard = () => {
         // Handle cart click event here
         console.log('Cart clicked!');
         setIsOpen(!isOpen); // Toggle the cart state
         console.log(isOpen); // Log the cart count
     }
+
+    const handleDelete = () => {
+        console.log('Delete clicked!');
+        clearCart(); // รีเซ็ตตะกร้า
+    };
+
+    const handleCheckout = () => {
+        console.log('Checkout clicked!');
+        clearCart(); // รีเซ็ตตะกร้า
+    };
+
     return (
         <div className='bg-white border-b-[0.02px] border-black text-black px-[120px] py-[30px] flex justify-between items-center'>
             <div className='flex items-center w-full'>
@@ -28,16 +39,16 @@ const NavBar = () => {
                             <a href="/">Colections</a>
                         </li>
                         <li>
-                            <a href="/about">Man</a>
+                            <a href="/">Man</a>
                         </li>
                         <li>
-                            <a href="/about">Women</a>
+                            <a href="/">Women</a>
                         </li>
                         <li>
-                            <a href="/about">About</a>
+                            <a href="/">About</a>
                         </li>
                         <li>
-                            <a href="/about">Contact</a>
+                            <a href="/">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -61,12 +72,45 @@ const NavBar = () => {
 
                         {isOpen && (
                             <div>
-                                {/* แสดงรายละเอียดตะกร้าสินค้าที่นี่ */}
-                                <div className='absolute z-10 right-0 bg-white shadow-lg rounded-lg p-4 mt-2 w-64'>
-                                    <h3 className='text-lg font-semibold'>Your Cart</h3>
-                                    <p className='text-gray-500'>No items in cart</p>
-                                    {/* เพิ่มรายละเอียดสินค้าในตะกร้าที่นี่ */}
-                                </div>
+                                {cartCount === 0 ? (
+                                    <div className='absolute z-10 right-0 bg-white shadow-lg rounded-lg p-4 mt-2 w-64'>
+                                        <h3 className='text-lg font-semibold'>Your Cart</h3>
+                                        <p className='text-gray-500 text-center mt-4'>No items in cart</p>
+                                    </div>
+                                ) : (
+                                    <div className='absolute z-10 right-0 bg-white shadow-lg rounded-lg p-4 mt-2 w-64'>
+                                        <h3 className='text-lg font-semibold'>Your Cart</h3>
+                                        <div className='flex items-center space-x-3 justify-between mt-4'>
+                                            <Image
+                                                src="/assets/images/image-product-1-thumbnail.jpg"
+                                                alt="Product Thumbnail"
+                                                width={50}
+                                                height={50}
+                                                className="rounded-lg"
+                                            />
+                                            <div className='flex flex-col'>
+                                                <p className='text-sm'>Fall Limited Edition Sneakers</p>
+                                                <p className='text-sm'>
+                                                    $125.00 x {cartCount} <span className='font-bold'>${cartCount * 125}</span>
+                                                </p>
+                                            </div>
+                                            <Image
+                                                src="/assets/images/icon-delete.svg"
+                                                alt="Delete Icon"
+                                                width={20}
+                                                height={20}
+                                                className="cursor-pointer"
+                                                onClick={handleDelete}
+                                            />
+                                        </div>
+                                        <button
+                                            className='bg-orange-500 text-white rounded-lg py-2 px-4 mt-4 w-full'
+                                            onClick={handleCheckout}
+                                        >
+                                            Checkout
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
@@ -76,6 +120,7 @@ const NavBar = () => {
                         width={30}
                         height={50}
                         className="hover:border-amber-700 hover:border-2 rounded-full cursor-pointer"
+
                     />
                 </div>
             </div>

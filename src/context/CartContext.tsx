@@ -1,10 +1,12 @@
 // context/CartContext.tsx
+
 "use client";
 import React, { createContext, useContext, useState } from 'react';
 
 const CartContext = createContext({
   cartCount: 0,
   addToCart: (quantity: number) => {},
+  clearCart: () => {}, // เพิ่มตรงนี้
 });
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
@@ -14,8 +16,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setCartCount(prev => prev + quantity);
   };
 
+  const clearCart = () => {
+    setCartCount(0);
+  };
+
   return (
-    <CartContext.Provider value={{ cartCount, addToCart }}>
+    <CartContext.Provider value={{ cartCount, addToCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
