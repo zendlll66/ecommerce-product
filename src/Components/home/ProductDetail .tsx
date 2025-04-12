@@ -31,9 +31,9 @@ const ProductDetail = () => {
     return (
         <div className='flex flex-col lg:flex-row justify-center items-center w-full bg-white lg:gap-20 md:p-8 '>
             {/* Product Image Section */}
-            <div className='w-full lg:w-1/2 max-w-lg mb-8 lg:mb-0 lg:mr-8'>
+            <div className='w-full lg:w-1/2 max-w-lg mb-8 lg:mb-0 lg:mr-8 p-6'>
                 {/* Main Product Image */}
-                <div className='relative w-full aspect-square overflow-hidden rounded-xl shadow-md'>
+                <div className='relative w-full aspect-square overflow-hidden rounded-xl shadow-md '>
                     <Image
                         src={selectedImage}
                         alt="Product Image"
